@@ -1,0 +1,117 @@
+<style>
+    /* Navbar Styling */
+    .navbar {
+      background-color: #1a1a2e;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      width: 100%;
+      position: absolute;
+    }
+
+    /* Nav Links */
+    .nav-link {
+      color: #f0f0f0 !important;
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0 15px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 3px;
+      background: #f9a826;
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #f9a826 !important;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Logo */
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #f9a826;
+      margin-right: 10px;
+    }
+
+    /* Buttons */
+    .btn-custom {
+      background-color: #f9a826;
+      color: #1a1a2e;
+      font-weight: bold;
+      border: none;
+      border-radius: 20px;
+      padding: 5px 15px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: #f0f0f0;
+      color: #1a1a2e;
+      transform: scale(1.05);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .nav-link {
+        margin: 0 5px;
+      }
+
+      .btn-custom {
+        padding: 5px 10px;
+      }
+    }
+  </style>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <!-- Left: Logo and Home Button -->
+          <div class="d-flex align-items-center">
+            <img src="/media/logo.png" alt="Logo" class="logo">
+            <a class="navbar-brand text-white" href="/">Bee Research</a>
+          </div>
+    
+          <!-- Center: Navigation Links -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/identify"><i class="fas fa-search me-2"></i>Identify</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tracker"><i class="fas fa-map-marker-alt me-2"></i>Tracker</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/research"><i class="fas fa-flask me-2"></i>Research</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/history"><i class="fas fa-history me-2"></i>History</a>
+              </li>
+            </ul>
+          </div>
+    
+          <!-- Right: Login, Logout, Profile -->
+          <div class="d-flex">
+            {% if user.is_authenticated %}
+            <a class="btn btn-custom me-2" href="#">Profile</a>
+            <a class="btn btn-custom me-2" href="/logout">Logout</a>
+            {% else %}
+            <a class="btn btn-custom me-2" href="/register">Register</a>
+            <a class="btn btn-custom me-2" href="/login">Login</a>   
+            {% endif %}   
+          </div>
+        </div>
+      </nav>

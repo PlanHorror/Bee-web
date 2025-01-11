@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<style>
+  .form-container {
+      background-color: #e7e7e7;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      max-width: 1000px;
+      width: 100%;
+      height: 60%;
+      overflow: hidden;
+      position: relative;
+  }
+
+  .form-left {
+      background-color: #ffffff;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      padding: 30px;
+      position: relative;
+      clip-path: circle(80% at 0% 50% );
+  }
+
+  .form-left img {
+      position: relative;
+      z-index: 2;
+      max-width: 20vw;
+      height: auto;
+  }
+
+  .form-right {
+      align-self: center;
+      flex: 1;
+      padding: 40px;
+  }
+
+  .form-right h3 {
+      margin-bottom: 20px;
+      color: #333;
+  }
+
+  .form-right form .btn {
+      background-color: #FFD600;
+      border: none;
+      color: #333;
+      font-weight: bold;
+  }
+
+  .form-right form .btn:hover {
+      background-color: #FFC107;
+  }
+  .form-control {
+      border-radius: 20px;
+      border: none;
+      
+  }
+  .terms-link {
+      color: #ffd500;
+  }
+  h2 {
+      text-align: center;
+  }
+  .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #FFF176
+  }
+  .btn {
+      border-radius: 20px;
+  }
+
+  .input-icon {
+      position: relative;
+  }
+
+  .input-icon .bi {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+  }
+</style>
+<div class="main">
+<div class="form-container">
+  <!-- Left Section -->
+  <div class="form-left">
+      <img src="/media/log.png" alt="Illustration" class="illustration">
+  </div>
+
+  <!-- Right Section -->
+  <div class="form-right">
+      <h2>Login</h2>
+      <p style="text-align: center;">Please enter your details below</p>
+      <form action="#" method="POST">
+        {% csrf_token %}
+        <div class="mb-3 input-icon">
+          <i class="bi bi-person-fill"></i>
+          <input type="text" class="form-control" id="name" placeholder="      Enter your username" name="name">
+      </div>
+      <div class="mb-3 input-icon">
+        <i class="bi bi-person-fill-lock"></i>
+          <input type="password" class="form-control" id="password" placeholder="      Enter your password" name="pw">
+      </div>
+      
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+          <p class="text-center mt-3">Don't have an account? <a href="/register">Register</a></p>
+      </form>
+  </div>
+</div>
+</div>
+<script>
+  // Remove icon from input field when not empty
+  const inputFields = document.querySelectorAll('.form-control');
+  inputFields.forEach(inputField => {
+      inputField.addEventListener('input', () => {
+          if (inputField.value) {
+              inputField.previousElementSibling.style.display = 'none';
+          } else {
+              inputField.previousElementSibling.style.display = 'block';
+          }
+      });
+  });
+</script>
+{% endblock %}
