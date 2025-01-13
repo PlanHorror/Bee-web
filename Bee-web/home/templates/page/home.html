@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<style>
+    .hero-section {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 110%), /* Gradient from transparent to dark */
+      url('/media/back.jpg');
+        background-size: cover;
+      height: 100vh;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+  
+    .hero-section h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+  
+    .hero-section p {
+      font-size: 1.2rem;
+      margin-top: 15px;
+    }
+  
+    .hero-section .btn {
+      background-color: #fff;
+      color: #ff9f00;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+  
+    .hero-section .btn:hover {
+      background-color: #ff9f00;
+      color: #fff;
+    }
+  
+    .features-section {
+      padding: 50px 20px;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+  
+    .features-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+    }
+  
+    .feature {
+      margin-bottom: 30px;
+    }
+  
+    .feature-icon {
+      font-size: 3rem;
+      color: #ffd500;
+      margin-bottom: 15px;
+    }
+  
+    .cta-section {
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #1a1a2e, #a54b019c);
+      color: #fff;
+      text-align: center;
+    }
+  
+    .cta-section h2 {
+      font-size: 2.5rem;
+    }
+  
+    .cta-section p {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+  
+    .cta-section .btn {
+      background-color: #fff;
+      color: #ff7200;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+  
+    .cta-section .btn:hover {
+      background-color: #ff7200;
+      color: #fff;
+    }
+  
+    @media (max-width: 768px) {
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+  
+      .hero-section p {
+        font-size: 1rem;
+      }
+  
+      .features-section h2 {
+        font-size: 2rem;
+      }
+  
+      .cta-section h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div>
+        <div style="height: 30vh;"></div>
+      <h1>Welcome to Bee Better</h1>
+      <p>Our platform specializes in identifying bees from videos and tracking them using sensors. Explore the world of bees with us!</p>
+      {% if not user.is_authenticated %}
+      <a href="{% url 'register' %}" class="btn">Get Started</a>
+        {% else %}
+        <a href="{% url 'identify' %}" class="btn">Identify</a>
+        <a href="{% url 'tracker' %}" class="btn">Tracker</a>
+        {% endif %}
+
+    </div>
+  </div>
+  
+  <!-- Features Section -->
+  <div class="features-section">
+    <h2>Our Features</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 feature">
+          <div class="feature-icon">
+            <i class="bi bi-camera-video"></i>
+          </div>
+          <h4>Identify Bees from Videos</h4>
+          <p>Upload videos and let our system accurately identify different bee species.</p>
+        </div>
+        <div class="col-md-4 feature">
+          <div class="feature-icon">
+            <i class="bi bi-bounding-box"></i>
+          </div>
+          <h4>Real-Time Tracking</h4>
+          <p>Monitor bee movements in real-time using camera and sensor technology.</p>
+        </div>
+        <div class="col-md-4 feature">
+          <div class="feature-icon">
+            <i class="bi bi-lightning-charge"></i>
+          </div>
+          <h4>Fast and Reliable</h4>
+          <p>Experience quick processing times and robust performance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Call-to-Action Section -->
+  <div class="cta-section">
+    <h2>Ready to Bee Better?</h2>
+    <p>Join our platform today and revolutionize the way you understand bees.</p>
+    <a href="{% url 'register' %}" class="btn">Register Now</a>
+  </div>
+  
+{% endblock %}

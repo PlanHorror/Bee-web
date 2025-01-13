@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<style>
+  .form-container {
+      background-color: #e7e7e7;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      width: 100%;
+      margin: auto;
+      overflow: hidden;
+  }
+
+  .form-left {
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 3%;
+      position: relative;
+      clip-path: circle(80% at 0% 50%);
+  }
+
+  .form-left img {
+      max-width: 100%;
+      height: auto;
+  }
+
+  .form-right {
+      flex: 1;
+      padding: 4%;
+  }
+
+  .form-right h2 {
+      text-align: center;
+      font-size: 1.5rem;
+  }
+
+  .form-right p {
+      text-align: center;
+      font-size: 0.9rem;
+  }
+
+  .form-right form .btn {
+      background-color: #FFD600;
+      border: none;
+      color: #333;
+      font-weight: bold;
+  }
+
+  .form-right form .btn:hover {
+      background-color: #FFC107;
+  }
+
+  .form-control {
+      border-radius: 20px;
+      border: none;
+  }
+
+  .terms-link {
+      color: #ffd500;
+  }
+
+  input::placeholder {
+      font-size: 90%;
+  }
+
+  .input-icon {
+      position: relative;
+  }
+
+  .input-icon .bi {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: #000000;
+  }
+
+  @media (max-width: 768px) {
+      .form-container {
+          flex-direction: column;
+      }
+
+      .form-left {
+          clip-path: none;
+          padding: 10px;
+          justify-content: center;
+      }
+
+      .form-left img {
+          max-width: 50%;
+      }
+
+      .form-right {
+          padding: 20px;
+      }
+  }
+
+  @media (max-width: 576px) {
+      .form-left img {
+          max-width: 70%;
+      }
+
+      .form-right h2 {
+          font-size: 1.25rem;
+      }
+
+      .form-right p {
+          font-size: 0.8rem;
+      }
+  }
+</style>
+<div style="height: 150px;"></div>
+<div class="main">
+  <div class="form-container">
+    <!-- Left Section -->
+    <div class="form-left">
+        <img src="/media/reg.png" alt="Illustration" class="illustration">
+    </div>
+
+    <!-- Right Section -->
+    <div class="form-right">
+        <h2>Register</h2>
+        <p>Please enter your details below</p>
+        <form action="#" method="POST">
+          {% csrf_token %}
+          <div class="mb-3 input-icon">
+            <i class="bi bi-person-fill"></i>
+            <input type="text" class="form-control" id="name" placeholder="      Enter your username" name="name">
+          </div>
+          <div class="mb-3 input-icon">
+            <i class="bi bi-envelope-at-fill"></i>
+            <input type="email" class="form-control" id="email" placeholder="      Enter your email" name="email">
+          </div>
+          <div class="mb-3 input-icon">
+            <i class="bi bi-person-fill-lock"></i>
+            <input type="password" class="form-control" id="password" placeholder="      Enter your password" name="pw1">
+          </div>
+          <div class="mb-3 input-icon">
+            <i class="bi bi-shield-lock-fill"></i>
+            <input type="password" class="form-control" id="confirm-password" placeholder="      Confirm your password" name="pw2">
+          </div>
+          <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="terms" required>
+              <label class="form-check-label" for="terms">
+                  I agree to all the <a href="#" class="terms-link">Terms and Conditions</a>.
+              </label>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Register</button>
+          <p class="text-center mt-3">Already have an account? <a href="#">Login</a></p>
+        </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Remove icon from input field when not empty
+  const inputFields = document.querySelectorAll('.form-control');
+  inputFields.forEach(inputField => {
+      inputField.addEventListener('input', () => {
+          if (inputField.value) {
+              inputField.previousElementSibling.style.display = 'none';
+          } else {
+              inputField.previousElementSibling.style.display = 'block';
+          }
+      });
+  });
+</script>
+{% endblock %}

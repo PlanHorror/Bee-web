@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "navbar.html" %}
+<div style="height: 150px;"></div>
+
+<style>
+  .video-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 50px;
+      padding: 40px;
+  }
+
+  .video-frame {
+      width: 40%;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .video-frame:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .video-frame video {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 3px solid #ffd500;
+  }
+
+  .video-frame h3 {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      color: #ff9f00;
+      text-transform: uppercase;
+  }
+
+  .video-frame p {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #555;
+  }
+
+  .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #ffffff;
+      background-color: #ff9f00;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+  }
+
+  .download-btn:hover {
+      background-color: #ff7200;
+  }
+</style>
+{% for i in history %}
+<div class="video-section">
+    <div class="video-frame">
+        <h3>Input Video</h3>
+        <p>The original video uploaded for analysis.</p>
+        <video controls>
+            <source src="{% url 'stream_video' 'videos' i.video %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <a href="{% url 'stream_video' 'videos' i.video %}" download class="download-btn">Download Input Video</a>
+    </div>
+
+    <div class="video-frame">
+        <h3>Output Video</h3>
+        <p>The processed video with bee tracking and detection.</p>
+        <video controls>
+            <source src="{% url 'stream_video' 'return_videos' i.return_video %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <a href="{% url 'stream_video' 'return_videos' i.return_video %}" download class="download-btn">Download Output Video</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

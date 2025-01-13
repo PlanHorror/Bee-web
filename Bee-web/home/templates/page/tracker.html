@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "navbar.html" %}
+
+<div style="height: 150px;"></div>
+
+<style>
+  .tracker-section {
+    justify-self: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      width: 70%;
+  }
+
+  .camera-image {
+      width: 50%;
+      margin-bottom: 30px;
+  }
+
+  .sensor-data {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      max-width: 800px;
+  }
+
+  .sensor-slot {
+      background-color: #ffea74;
+      border-radius: 15px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      text-align: center;
+      width: 30%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .sensor-slot:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .sensor-slot h4 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #000000;
+  }
+
+  .sensor-slot p {
+      font-size: 1rem;
+      color: #555;
+  }
+</style>
+<div style="width: 100%; height: 100%;">
+<div class="tracker-section">
+    <img src="https://127.0.0.1:5000/cam" alt="Camera" class="camera-image">
+
+    <div class="sensor-data">
+        <div class="sensor-slot">
+            <h4>Humidity</h4>
+            <p>Data: <span id="sensor1-data">Loading...</span>%</p>
+        </div>
+
+        <div class="sensor-slot">
+            <h4>Temperature</h4>
+            <p>Data: <span id="sensor2-data">Loading...</span>℃</p>
+        </div>
+
+        <div class="sensor-slot">
+            <h4>Sensor 3</h4>
+            <p>Data: <span id="sensor3-data">Loading...</span></p>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+  // Example script to simulate sensor data updates
+  function updateSensorData() {
+      document.getElementById('sensor1-data').innerText = Math.random().toFixed(2);
+      document.getElementById('sensor2-data').innerText = Math.random().toFixed(2);
+      document.getElementById('sensor3-data').innerText = Math.random().toFixed(2);
+  }
+
+  setInterval(updateSensorData, 1000);
+async function fetchSensorData() {
+    try {
+        const response = await fetch('https://127.0.0.1:5000/sen');
+        const data = await response.json();
+        console.log(data)
+        document.getElementById('sensor1-data').innerText = data['humidity'];
+        document.getElementById('sensor2-data').innerText = data['temperature'];
+        document.getElementById('sensor3-data').innerText = data.sensor3;
+    } catch (error) {
+        console.error('Error fetching sensor data:', error);
+    }
+}
+
+setInterval(fetchSensorData, 1000);
+</script>
+{% endblock %}

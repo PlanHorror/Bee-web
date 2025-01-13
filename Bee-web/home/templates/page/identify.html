@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "navbar.html" %}
+<style>
+  .upload-card {
+    background: #fff; /* Clean white background for contrast */
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Makes the card pop out */
+    width: 70%;
+    height: 90%;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10vh !important;
+  }
+
+  .btn-primary {
+    background: linear-gradient(45deg, #f59e0b, #d97706); /* Rich yellow-orange gradient */
+    border: none;
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(45deg, #d97706, #f59e0b); /* Inverse gradient for hover effect */
+  }
+
+
+  .text-highlight {
+    color: #d97706; /* Deep orange for emphasis */
+    font-weight: bold;
+  }
+
+  .text-muted {
+    color: #6b7280; /* Neutral gray for subtler elements */
+  }
+  .form {
+    justify-items: center;
+    height: 50%;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  .main {
+    margin-bottom: 3rem;
+    height: 90vh;
+  }
+  .upload-box {
+    border: 2px dashed #ced4da;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    padding: 7%;
+    height: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .upload-box:hover {
+    border-color: #007bff;
+  }
+  .upload-box .icon {
+    font-size: 5vh;
+    color: #e4e000;
+  }
+  .upload-box p {
+    margin: 10px 0 0;
+    color: #6c757d;
+    font-size: 100%;
+  }
+  .upload-box h5 {
+    font-size: 150%;
+  }
+  .upload-box input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .file-name {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #333;
+  }
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Light blur effect */
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px); /* Blurs everything behind the overlay */
+    display: none; /* Hidden by default */
+  }
+
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  Loading...
+</div>
+<div style="height: 150px;"></div>
+<div class="container d-flex justify-content-center align-items-center h-100 main">
+  <div class="upload-card p-5">
+    <h2 class="text-center mb-4">📹 <span class="text-highlight">Upload Your Video</span></h2>
+    <p class="text-center text-muted mb-4">Easily upload your video file to identify the bee in just a few clicks.</p>
+    <form action="" method="post" enctype="multipart/form-data" class="form" id="uploadForm">
+      {% csrf_token %}
+
+        <div class="card shadow p-4 h-100" style=" width: 60%; justify-items: center;">
+          <div class="upload-box">
+            <i class="bi bi-cloud-upload icon"></i>
+            <h5>Click box to upload</h5>
+            <p>Maximum file size 10mb</p>
+            <input type="file" name="file" accept="video/mp4" id="fileInput" required>
+            <div class="file-name text-center" id="fileName">No file chosen</div>
+          </div>
+        </div>
+
+      <div class="d-grid p-3">
+        <button type="submit" class="btn btn-primary btn-lg">Upload Video</button>
+      </div>
+    </form>
+    <p class="text-center text-muted mt-3">
+      Need help? <a href="#" class="text-highlight">Contact support</a>.
+    </p>
+  </div>
+</div>
+<script>
+  document.getElementById('fileInput').addEventListener('change', function(event) {
+    const fileName = event.target.files[0] ? event.target.files[0].name : 'No file chosen';
+    document.getElementById('fileName').textContent = fileName;
+  });
+  document.getElementById('uploadForm').addEventListener('submit', function() {
+    // Show loading overlay when the form is submitted
+    document.getElementById('loadingOverlay').style.display = 'flex';
+  });
+
+</script>
+{% endblock %}
